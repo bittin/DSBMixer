@@ -12,17 +12,11 @@ set(BACKEND "${CMAKE_PROJECT_NAME}_backend")
 set(PA_SCRIPT "${CMAKE_PROJECT_NAME}-pa")
 set(DBUS_SCRIPT "${CMAKE_PROJECT_NAME}-dbus")
 set(SCRIPTS_DIR "${CMAKE_INSTALL_PREFIX}/libexec")
-
-if(NOT DEFINED DATADIR)
-  set(DATADIR ${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME})
-endif(NOT DEFINED DATADIR)
-
 set(BACKEND_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/libexec)
 set(PATH_BACKEND ${BACKEND_INSTALL_DIR}/${BACKEND})
 set(PATH_DSBWRTSYSCTL ${CMAKE_INSTALL_PREFIX}/bin/dsbwrtsysctl)
 set(PATH_DOC_URL "https://github.com/mrclksr/DSBMixer/blob/master/README.adoc")
 set(PATH_DSBMIXER_PA "${SCRIPTS_DIR}/${PA_SCRIPT}")
-set(LOCALE_PATH "${DATADIR}")
 
 if(PROJECT_VERSION)
   set(PROGRAM_VERSION ${PROJECT_VERSION})
@@ -84,7 +78,24 @@ else()
   set(CMAKE_AUTOUIC ON)
 endif()
 
-set(TS_FILES locale/dsbmixer_de.ts locale/dsbmixer_fr.ts locale/dsbmixer_sv.ts)
+set(TS_FILES locale/dsbmixer_ar.ts
+             locale/dsbmixer_cs.ts
+             locale/dsbmixer_de.ts
+             locale/dsbmixer_es.ts
+             locale/dsbmixer_fr.ts
+             locale/dsbmixer_hi.ts
+             locale/dsbmixer_hu.ts
+             locale/dsbmixer_id.ts
+             locale/dsbmixer_it.ts
+             locale/dsbmixer_ja.ts
+             locale/dsbmixer_ko.ts
+             locale/dsbmixer_pl.ts
+             locale/dsbmixer_pt.ts
+             locale/dsbmixer_ru.ts
+             locale/dsbmixer_sv.ts
+             locale/dsbmixer_tr.ts
+             locale/dsbmixer_uk.ts
+             locale/dsbmixer_zh.ts)
 
 if(NOT USE_QT6)
   qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
@@ -122,6 +133,6 @@ target_link_libraries(dsbmixer PRIVATE ${LIBS})
 
 install(TARGETS dsbmixer DESTINATION bin)
 install(PROGRAMS scripts/${DBUS_SCRIPT} DESTINATION bin)
-install(PROGRAMS scripts/${PA_SCRIPT} DESTINATION ${SCRIPTS_DIR})
+install(PROGRAMS scripts/${PA_SCRIPT} DESTINATION libexec)
 install(FILES "${CMAKE_PROJECT_NAME}.desktop" DESTINATION share/applications)
-install(FILES ${QM_FILES} DESTINATION "${DATADIR}")
+install(FILES ${QM_FILES} DESTINATION share/${CMAKE_PROJECT_NAME})
